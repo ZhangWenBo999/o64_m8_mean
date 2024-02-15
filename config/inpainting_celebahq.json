@@ -19,7 +19,7 @@
             "which_dataset": {  // import designated dataset using arguments 
                 "name": ["data.dataset", "InpaintDataset"], // import Dataset() class / function(not recommend) from data.dataset.py (default is [data.dataset.py])
                 "args":{ // arguments to initialize dataset
-                    "data_root": "datasets/celebahq/flist/train.flist",
+                    "data_root": "/kaggle/input/celebahq-resized-256x256",
                     "data_len": -1,
                     "mask_config": {
                         "mask_mode": "hybrid"
@@ -134,7 +134,7 @@
 
     "train": { // arguments for basic training
         "n_epoch": 1e8, // max epochs, not limited now
-        "n_iter": 1e8, // max interations
+        "n_iter": 930000, // max interations
         "val_epoch": 5, // valdation every specified number of epochs
         "save_checkpoint_epoch": 10,
         "log_iter": 1e3, // log every specified number of iterations
