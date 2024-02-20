@@ -19,7 +19,7 @@
             "which_dataset": {  // import designated dataset using arguments 
                 "name": ["data.dataset", "InpaintDataset"], // import Dataset() class / function(not recommend) from data.dataset.py (default is [data.dataset.py])
                 "args":{ // arguments to initialize dataset
-                    "data_root": "/kaggle/input/celebahq-resized-256x256",
+                    "data_root": "datasets/celebahq/flist/train.flist",
                     "data_len": -1,
                     "mask_config": {
                         "mask_mode": "hybrid"
