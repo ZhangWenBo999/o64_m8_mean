@@ -107,6 +107,7 @@ class BaseModel():
 
     def load_network(self, network, network_label, strict=True):
         if self.opt['path']['resume_state'] is None:
+            print("resume_state is None!!!")
             return 
         self.logger.info('Beign loading pretrained model [{:s}] ...'.format(network_label))
 
@@ -117,6 +118,7 @@ class BaseModel():
             return
 
         self.logger.info('Loading pretrained model from [{:s}] ...'.format(model_path))
+        print('Loading pretrained model from [{:s}] ...'.format(model_path))
         if isinstance(network, nn.DataParallel) or isinstance(network, nn.parallel.DistributedDataParallel):
             network = network.module
         network.load_state_dict(torch.load(model_path, map_location = lambda storage, loc: Util.set_device(storage)), strict=strict)
