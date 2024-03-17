@@ -10,7 +10,7 @@
         "tb_logger": "tb_logger", // path of tensorboard logger
         "results": "results",
         "checkpoint": "checkpoint",
-        "resume_state": "/kaggle/input/fachq-origin-293/293" 
+        "resume_state": "/kaggle/input/fachq-origin-300/300" 
         // "resume_state": null // ex: 100, loading .state  and .pth from given epoch and iteration
     },
 
@@ -56,7 +56,7 @@
             },
             "dataloader":{
                 "args":{
-                    "batch_size": 8,
+                    "batch_size": 4,
                     "num_workers": 4,
                     "pin_memory": true
                 }
