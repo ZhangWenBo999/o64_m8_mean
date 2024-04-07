@@ -51,7 +51,7 @@ class InpaintDataset(data.Dataset):
 
     def __getitem__(self, index):
 
-        if index in [4960, 3864]:
+        if index in [12479, 9672]:
             self.mask_mode = "center"
         else:
             self.mask_mode = "hybrid"
