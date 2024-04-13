@@ -48,13 +48,16 @@ class InpaintDataset(data.Dataset):
         self.mask_config = mask_config
         self.mask_mode = self.mask_config['mask_mode']
         self.image_size = image_size
+        self.phase = self.mask_config["phase"]
 
     def __getitem__(self, index):
 
-        if index in [12479, 9672]:
-            self.mask_mode = "center"
+        self.phase = self.mask_config["phase"]
+
+        if self.phase == "train":
+            self.mask_mode = np.random.choice(["bbox", 'center', 'irregular', 'free_form', 'hybrid'])
         else:
-            self.mask_mode = "hybrid"
+            self.mask_mode = "center"
         
         ret = {}
         path = self.imgs[index]
