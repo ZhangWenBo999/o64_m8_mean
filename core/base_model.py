@@ -41,7 +41,8 @@ class BaseModel():
             if self.opt['distributed']:
                 ''' sets the epoch for this sampler. When :attr:`shuffle=True`, this ensures all replicas use a different random ordering for each epoch '''
                 self.phase_loader.sampler.set_epoch(self.epoch) 
-
+                
+            self.opt["datasets"]["train"]["which_dataset"]["args"]["mask_config"]["phase"] = "train"
             train_log = self.train_step()
 
             ''' save logged informations into log dict ''' 
@@ -60,6 +61,7 @@ class BaseModel():
                 if self.val_loader is None:
                     self.logger.warning('Validation stop where dataloader is None, Skip it.')
                 else:
+                    self.opt["datasets"]["train"]["which_dataset"]["args"]["mask_config"]["phase"] = "eval"
                     val_log = self.val_step()
                     for key, value in val_log.items():
                         self.logger.info('{:5s}: {}\t'.format(str(key), value))
