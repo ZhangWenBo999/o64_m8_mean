@@ -7,6 +7,8 @@ import numpy as np
 
 from .util.mask import (bbox2mask, brush_stroke_mask, get_irregular_mask, random_bbox, random_cropping_bbox)
 
+from mask_generation.utils import MaskGeneration, MergeMask, RandomAttribute
+
 IMG_EXTENSIONS = [
     '.jpg', '.JPG', '.jpeg', '.JPEG',
     '.png', '.PNG', '.ppm', '.PPM', '.bmp', '.BMP',
@@ -49,15 +51,25 @@ class InpaintDataset(data.Dataset):
         self.mask_mode = self.mask_config['mask_mode']
         self.image_size = image_size
         self.phase = self.mask_config['phase']
+        self.m12_mode = self.mask_config["m12_mode"]
+        self.img = self.imgs[0]
 
     def __getitem__(self, index):
 
         self.phase = self.mask_config['phase']
 
         if self.phase == 'train':
-            self.mask_mode = np.random.choice(['bbox', 'center', 'irregular', 'free_form', 'hybrid'])
+            self.mask_mode = np.random.choice(['bbox', 'center', 'irregular', 'free_form', 'hybrid', 'ThickStrokes', 'MediumStrokes', 'ThinStrokes'])
         else:
             self.mask_mode = 'center'
+
+        if self.mask_mode == 'ThinStrokes':
+            self.m12_mode = RandomAttribute('ThinStrokes', 64)
+        elif self.mask_mode == 'MediumStrokes':
+            self.m12_mode = RandomAttribute('MediumStrokes', 64)
+        elif self.mask_mode == 'ThickStrokes':
+            self.m12_mode = RandomAttribute('ThickStrokes', 64)
+
         
         ret = {}
         path = self.imgs[index]
@@ -77,6 +89,7 @@ class InpaintDataset(data.Dataset):
         return len(self.imgs)
 
     def get_mask(self):
+        mask_generation = MaskGeneration()
         if self.mask_mode == 'bbox':
             mask = bbox2mask(self.image_size, random_bbox())
         elif self.mask_mode == 'center':
@@ -90,6 +103,12 @@ class InpaintDataset(data.Dataset):
             regular_mask = bbox2mask(self.image_size, random_bbox())
             irregular_mask = brush_stroke_mask(self.image_size, )
             mask = regular_mask | irregular_mask
+        elif self.mask_mode == 'ThinStrokes':
+            mask = mask_generation(self.img, self.m12_mode)
+        elif self.mask_mode == 'MediumStrokes':
+            mask = mask_generation(self.img, self.m12_mode)
+        elif self.mask_mode == 'ThickStrokes':
+            mask = mask_generation(self.img, self.m12_mode)
         elif self.mask_mode == 'file':
             pass
         else:

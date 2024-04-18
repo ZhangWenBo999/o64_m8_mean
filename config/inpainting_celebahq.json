@@ -19,11 +19,12 @@
             "which_dataset": {  // import designated dataset using arguments 
                 "name": ["data.dataset", "InpaintDataset"], // import Dataset() class / function(not recommend) from data.dataset.py (default is [data.dataset.py])
                 "args":{ // arguments to initialize dataset
-                    "data_root": "/kaggle/working/huface_origin_64/datasets/celebahq/flist/train_64_28000.flist",
+                    "data_root": "datasets/celebahq/flist/train_64_28000_local.flist",
                     "data_len": -1,
                     "mask_config": {
                         "mask_mode": "hybrid",
-                        "phase": "train"
+                        "phase": "train",
+                        "m12_mode": "mask_generation/lama_generation/random_medium_64.yaml"
                     }
                 } 
             },
@@ -49,7 +50,7 @@
             "which_dataset": {
                 "name": "InpaintDataset", // import Dataset() class / function(not recommend) from default file
                 "args":{
-                    "data_root": "/kaggle/working/huface_origin_64/datasets/celebahq/flist/test_64_2000.flist",
+                    "data_root": "datasets/celebahq/flist/test_64_2000_local.flist",
                     "mask_config": {
                         "mask_mode": "center",
                         "phase": "test"
@@ -137,7 +138,7 @@
     "train": { // arguments for basic training
         "n_epoch": 800, // max epochs, not limited now
         "n_iter": 1e8, // max interations
-        "val_epoch": 10, // valdation every specified number of epochs
+        "val_epoch": 1, // valdation every specified number of epochs
         "save_checkpoint_epoch": 10,
         "log_iter": 1e3, // log every specified number of iterations
         "tensorboard" : false // tensorboardX enable
