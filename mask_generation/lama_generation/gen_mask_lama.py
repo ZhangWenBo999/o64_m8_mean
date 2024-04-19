@@ -202,7 +202,7 @@ def process_image_from_model(mask_generator, infile, outfile, config):
         for i, idx in enumerate(mask_indices):
             cur_image, cur_mask = filtered_image_mask_pairs[idx]
             cur_basename = outfile # mask_basename + f'_crop{i:03d}'
-            Image.fromarray(np.clip(cur_mask * 255, 0, 255).astype('uint8'),
+            Image.fromarray(np.clip(cur_mask * 1, 0, 1).astype('uint8'),
                             mode='L').save(cur_basename) # + f'_mask{i:03d}.png')
             cur_image.save(cur_basename) # + '.png')
     except KeyboardInterrupt:
