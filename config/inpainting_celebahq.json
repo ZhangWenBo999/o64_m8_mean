@@ -19,17 +19,17 @@
             "which_dataset": {  // import designated dataset using arguments 
                 "name": ["data.dataset", "InpaintDataset"], // import Dataset() class / function(not recommend) from data.dataset.py (default is [data.dataset.py])
                 "args":{ // arguments to initialize dataset
-                    "data_root": "/kaggle/working/o64_m8_mean/datasets/celebahq/flist/train_64_28000.flist",
+                    "data_root": "datasets/celebahq/flist/dualx_64_local.flist",
                     "data_len": -1,
                     "mask_config": {
                         "mask_mode": "hybrid",
                         "phase": "train",
                         "m12_mode": "mask_generation/lama_generation/random_medium_64.yaml"
                     }
-                } 
+                }
             },
             "dataloader":{
-                "validation_split": 2, // percent or number 
+                "validation_split": 4, // percent or number
                 "args":{ // arguments to initialize train_dataloader
                     "batch_size": 5, // batch size in each gpu
                     "num_workers": 4,
@@ -38,11 +38,11 @@
                     "drop_last": true
                 },
                 "val_args":{ // arguments to initialize valid_dataloader, will overwrite the parameters in train_dataloader
-                    "batch_size": 1, // batch size in each gpu
+                    "batch_size": 2, // batch size in each gpu
                     "num_workers": 4,
                     "shuffle": false,
                     "pin_memory": true,
-                    "drop_last": false
+                    "drop_last": true
                 }
             }
         },
@@ -50,7 +50,7 @@
             "which_dataset": {
                 "name": "InpaintDataset", // import Dataset() class / function(not recommend) from default file
                 "args":{
-                    "data_root": "/kaggle/working/o64_m8_mean/datasets/celebahq/flist/test_64_2000.flist",
+                    "data_root": "datasets/celebahq/flist/dualx_64_local.flist",
                     "mask_config": {
                         "mask_mode": "center",
                         "phase": "test"
@@ -136,12 +136,16 @@
     },
 
     "train": { // arguments for basic training
-        "n_epoch": 800, // max epochs, not limited now
+        "n_epoch": 46, // max epochs, not limited now
         "n_iter": 1e8, // max interations
-        "val_epoch": 10, // valdation every specified number of epochs
+        "val_epoch": 1, // valdation every specified number of epochs
         "save_checkpoint_epoch": 10,
         "log_iter": 1e3, // log every specified number of iterations
-        "tensorboard" : false // tensorboardX enable
+        "tensorboard" : false, // tensorboardX enable
+        "min_val_mae_loss": 1e3,
+        "min_val_flag": false,
+        "train_previous": [],
+        "eval_previous": []
     },
     
     "debug": { // arguments in debug mode, which will replace arguments in train
