@@ -19,7 +19,7 @@
             "which_dataset": {  // import designated dataset using arguments 
                 "name": ["data.dataset", "InpaintDataset"], // import Dataset() class / function(not recommend) from data.dataset.py (default is [data.dataset.py])
                 "args":{ // arguments to initialize dataset
-                    "data_root": "datasets/celebahq/flist/dualx_64_local.flist",
+                    "data_root": "/kaggle/working/o64_m8_mean/datasets/celebahq/flist/train_64_28000.flist",
                     "data_len": -1,
                     "mask_config": {
                         "mask_mode": "hybrid",
@@ -50,7 +50,7 @@
             "which_dataset": {
                 "name": "InpaintDataset", // import Dataset() class / function(not recommend) from default file
                 "args":{
-                    "data_root": "datasets/celebahq/flist/dualx_64_local.flist",
+                    "data_root": "/kaggle/working/o64_m8_mean/datasets/celebahq/flist/test_64_2000.flist",
                     "mask_config": {
                         "mask_mode": "center",
                         "phase": "test"
