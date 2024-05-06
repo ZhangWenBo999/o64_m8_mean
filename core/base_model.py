@@ -56,7 +56,7 @@ class BaseModel():
             for key, value in train_log.items():
                 self.logger.info('{:5s}: {}\t'.format(str(key), value))
             
-            if self.epoch == self.opt['train']['n_epoch'] or (time.time() - start_time >= 42000):
+            if self.epoch == self.opt['train']['n_epoch'] or (time.time() - start_time >= 38700):
                 # self.logger.info('Saving the self at the end of epoch {:.0f}'.format(self.epoch))
                 self.save_everything()
 
@@ -85,7 +85,7 @@ class BaseModel():
                             self.save_everything()
                             self.epoch = int(self.epoch.split('_', 1)[0])
 
-                        if self.epoch == self.opt['train']['n_epoch'] or (time.time() - start_time >= 42000):
+                        if self.epoch == self.opt['train']['n_epoch'] or (time.time() - start_time >= 38700):
                             self.opt['train']['train_previous'].extend(train_mse_losses)
                             self.opt['train']['eval_previous'].extend(eval_mae_losses)
                             pic_path = os.path.join(self.opt['path']['checkpoint'], 'loss_pic')
